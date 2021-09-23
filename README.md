@@ -1,6 +1,6 @@
 <div align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-  <h1>NestJS Base Code by Gerpann</h1>
+  <h1>NestJS Base Code Integrated MongoDB by Gerpann</h1>
 </div>
 
 
@@ -11,8 +11,8 @@ Base code for developing RESTful Api Web server quickly using [NestJS](https://n
 
 ## Intergrating
 * [NestJS](https://nestjs.com) (totaly writing with Typescript)
-* [TypeORM](https://typeorm.io/)
-* [Mysql](https://www.mysql.com/) (also support various of [RDMS](https://en.wikipedia.org/wiki/RDMS))
+* [Mongoose](https://mongoosejs.com/)
+* [MongoDB](https://www.mongodb.com/)
 * Logger
 * [Swagger](https://swagger.io/) (OpenAPI) for Api documents
 * Health check for server status
@@ -37,20 +37,8 @@ cp .env.example .env
 ***
 
 ## Setup Database
-This project has already integrated with [TypeORM](https://typeorm.io/) and Mysql database.<br/>
-But you can easily config your database type you want in `ormconfig.ts` and in the `database.module.ts` file.<br/>
-*Note that your database can have some different configurations like Mysql)*
-* If you see any files in the `src/database/migrations/` folder, you should remove all of them first.
-* Add your entities for your project (in each module in `src/modules` folder).
-* Make sure that your database is already created and clean. Then generate query for make tables base on your entities you wrote. *Note that you can define file name in the `package.json` file*
-```bash
-yarn migration:generate
-```
-* Usually, you have to use the above command only when you want to change your database (TypeORM realize the different in your `entities` and the database you connected). When you want to apply changes to the database. Run command:
-```bash
-yarn migration:run
-```
-And the rest scripts is availble in `package.json` file! 
+This project has already integrated with [Nestjs-Mongoose Module](https://docs.nestjs.com/techniques/mongodb)<br/>
+You just have to edit model (schema) for entities in each module.
 
 ***
 
@@ -85,20 +73,6 @@ $ sudo rm -rf data
 $ docker-compose up
 ```
 
-### Note
-If you have any changes with the database, you have to generate new migration file.<br/>
-Normally, we can easily generate with command ```yarn migration:generate``` but now, with docker, we don't install any dependencies.<br/>
-Solution: Run ```docker exec``` to the container that are running the `nest-app`.<br/>
-Example:
-```bash
-$ docker exec -ti nestjs-base_app_1 /bin/sh
-```
-with `nestjs-base_app_1` is the nestjs app container name (you can configure it in the `docker-compose.yml` file)
-Then, you just run command to generate the new migration file (error occurs if there's no change with entities)
-```bash
-$ yarn migration:generate  
-```
-Finally, it's ready to execute your app with `docker-compose`.
 ***
 
 ## Test
@@ -120,3 +94,4 @@ $ npm run test:cov
 
 * Author - [Gerpan](https://github.com/gerpann)
 * Facebook - [Gerpan](https://www.facebook.com/gerpan.4701)
+* Other Nestjs base with Typeorm integrated with RDMS - [NestJS-Base](https://github.com/gerpann/nestjs-base)
